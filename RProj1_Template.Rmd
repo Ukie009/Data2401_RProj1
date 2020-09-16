@@ -1,76 +1,61 @@
 ---
 title: "R Project 1 - Hello R"
-author: "Your Name Goes Here"
+author: "Iryna Dovzhuk"
 date: "9/16/2020"
-output: html_document
+output: 
+  html_document: 
+    fig_width: 5
+    fig_height: 6
+    highlight: espresso
+    theme: yeti
 ---
-
-MAKE SURE YOU READ AND FOLLOW **ALL** INSTRUCTIONS ON THE INSTRUCTION DOCUMENT. 
-
-### Load packages
-
 ```{r load-packages, message=FALSE}
 library(tidyverse) 
 library(datasauRus)
 ```
 
+# A data frame for datasaurus_dozen has 1846 rows and 3 variables. The 3 variables are: dataset, x-values, and y-values. 
 
-### Exercise 1
-
-(Type your answer to Exercise 1 here. This exercise does not require any R code. **Remove notes like this in the final product that you turn in**)
-
-### Exercise 2
-
-(The answers for this Exercise are given for you below. But you should clean up some of the narrative so that it only includes what you want to turn in.)
-
-First let's plot the data in the dino dataset:
-
-```{r plot-dino, fig.height=3, fig.width=6}
+```{r plot-dino, fig.height5, fig.width=4}
 dino_data <- datasaurus_dozen %>%
   filter(dataset == "dino")
 ggplot(data = dino_data, mapping = aes(x = x, y = y)) +
   geom_point()
 ```
 
-And next calculate the correlation between `x` and `y` in this dataset:
-
 ```{r cor-dino}
 dino_data %>%
   summarize(r = cor(x, y))
 ```
 
-### Exercise 3
-
-(Add code and narrative as needed. Note that the R chunks are labeled with `plot-star` and `cor-star` to provide spaces to place the code for plotting and calculating the correlation coefficient. To finish, remember to clean up the narrative by removing these instructions.)
-
-
-
 ```{r plot-star}
-
-
+star_data <- datasaurus_dozen %>%
+  filter(dataset == "star")
+ggplot(data = star_data, mapping = aes(x = x, y = y)) +
+  geom_point()
 ```
-
-I'm some text, you should replace me with more meaningful text...
  
 ```{r cor-star}
-
-
+star_data %>%
+  summarize(r = cor(x, y))
 ```
 
-### Exercise 4
+```{r plot-circle}
+circle_data <- datasaurus_dozen %>%
+  filter(dataset == "circle")
+ggplot(data = circle_data, mapping = aes(x = x, y = y)) +
+  geom_point()
+```
 
-(Add code and narrative as needed. Note that two R chunks are given but they are not labeled. Use the convention from above to name them appropriately.)
+```{r cor-circle}
+circle_data %>%
+  summarize(r = cor(x, y))
+```
 
 ```{r}
-
-
+ggplot(datasaurus_dozen, aes(x = x, y = y, color = dataset))+ geom_point()+ facet_wrap(~ dataset, ncol = 3) + theme(legend.position = "none")
+datasaurus_dozen %>%
+  group_by(dataset) %>%
+  summarize(r = cor(x,y)) %>%
+  print(13)
 ```
-
-```{r}
-
-
-```
-
-### Exercise 5
-
-(Add code and narrative as needed. To add R chunks either type out the backticks, curly braces, and the letter `r` or use the Insert chunk button above, with the green +C.)
